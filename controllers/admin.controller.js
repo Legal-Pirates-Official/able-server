@@ -29,3 +29,14 @@ exports.adminpost = async (req, res) => {
 		}
 	);
 };
+exports.getRequest = async (req, res) => {
+	console.log('s');
+	await db.query('SELECT booked_slot FROM Meet', (err, response) => {
+		if (err) {
+			console.log(err);
+		} else {
+			console.log(response);
+			res.status(200).json(response);
+		}
+	});
+}
