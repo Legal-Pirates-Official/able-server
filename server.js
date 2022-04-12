@@ -4,6 +4,8 @@ require('dotenv').config();
 
 const admin = require('./routes/admin');
 
+app.use(express.json());
+
 app.use('/admin', admin);
 
 app.listen(`${process.env.PORT}`, () => {

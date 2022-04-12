@@ -18,7 +18,7 @@ router.post('/', adminpost);
 
 router.get('/stories', storiesGet);
 router.post('/stories', storiesPost);
-router.put('/stories/:id', storiesUpdate);
+router.post('/stories/:id', storiesUpdate);
 router.delete('/stories/:id', storiesDelete);
 
 module.exports = router;
