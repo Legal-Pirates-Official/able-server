@@ -13,12 +13,13 @@ exports.storiesGet = async (req, res) => {
 
 exports.storiesPost = async (req, res) => {
 	await db.query(
-		`INSERT INTO stories SET video_title = ?,video_description = ?,video_url,video_type = ?`,
+		`INSERT INTO stories SET video_title = ?,video_description = ?,video_url,video_type = ?, video_thumbnail = ?`,
 		[
 			req.body.values.video_title,
 			req.body.values.video_description,
 			req.body.values.video_url,
-			req.body.values.video_type
+			req.body.values.video_type,
+			req.body.values.video_thumbnail
 		],
 		(err, response) => {
 			if (err) {
@@ -32,12 +33,13 @@ exports.storiesPost = async (req, res) => {
 
 exports.storiesUpdate = async (req, res) => {
 	await db.query(
-		`UPDATE stories SET video_description = ?,video_title = ? ,video_type = ?,video_url = ? WHERE id = ?`,
+		`UPDATE stories SET video_description = ?,video_title = ? ,video_type = ?,video_url = ?, video_thumbnail = ? WHERE id = ?`,
 		[
 			req.body.values.video_description,
 			req.body.values.video_title,
 			req.body.values.video_type,
 			req.body.values.video_url,
+			req.body.values.video_thumbnail,
 			req.params.id
 		],
 		(err, response) => {
