@@ -5,7 +5,7 @@ const db = require('../database');
 const router = express.Router();
 
 // controllers
-const { adminget, adminpost ,getRequest} = require('../controllers/admin.controller');
+const { adminget, adminpost ,getRequest,addSlot,getSlot,sendMail,mailer,meetLink,rejectRequest} = require('../controllers/admin.controller');
 const {
 	storiesGet,
 	storiesPost,
@@ -15,6 +15,9 @@ const {
 
 router.get('/', adminget);
 router.post('/', adminpost);
+router.post('/reject', rejectRequest)
+router.post('/meetlink', meetLink);
+router.post('/mail',mailer)
 router.get('/request', getRequest)
 router.get('/stories', storiesGet);
 router.post('/stories', storiesPost);
