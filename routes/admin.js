@@ -13,11 +13,18 @@ const {
 	storiesUpdate
 } = require('../controllers/stories.controller');
 
+const {aboutget, aboutupdate} = require('../controllers/home.controller');
+
+
 router.get('/', adminget);
 router.post('/', adminpost);
 router.post('/reject', rejectRequest)
 router.post('/meetlink', meetLink);
 router.post('/mail',mailer)
+
+router.get('/about', aboutget);
+router.post('/about', aboutupdate);
+
 router.get('/request', getRequest)
 router.get('/stories', storiesGet);
 router.post('/stories', storiesPost);
