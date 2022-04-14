@@ -16,7 +16,7 @@ exports.storiesPost = async (req, res) => {
 		[
 			req.body.values.title,
 			req.body.values.description,
-			req.body.values.video_url ? req.body.values.video_url : video,
+			req.body.values.video_url,
 			req.body.values.video_type,
 			req.body.photo
 				? req.body.photo
@@ -39,7 +39,7 @@ exports.storiesUpdate = async (req, res) => {
 			req.body.values.description,
 			req.body.values.title,
 			req.body.values.video_type,
-			req.body.values.video_url ? req.body.values.video_url : video,
+			req.body.values.video_url,
 			req.body.photo
 				? req.body.photo
 				: 'https://wallpaperaccess.com/full/3458147.jpg',
