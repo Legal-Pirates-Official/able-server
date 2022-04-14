@@ -5,16 +5,29 @@ const db = require('../database');
 const router = express.Router();
 
 // controllers
-const { adminget, adminpost ,getRequest} = require('../controllers/admin.controller');
+const {
+	adminget,
+	adminpost,
+	getRequest
+} = require('../controllers/admin.controller');
 const {
 	storiesGet,
 	storiesPost,
 	storiesDelete,
-	storiesUpdate
+	storiesUpdate,
+	uploadStoryThumbnail
 } = require('../controllers/stories.controller');
 
-const {aboutget, aboutupdate, getyoutube, youtubeInsert, deleteYoutube, getEvents,eventsInsert,deleteEvents} = require('../controllers/home.controller');
-
+const {
+	aboutget,
+	aboutupdate,
+	getyoutube,
+	youtubeInsert,
+	deleteYoutube,
+	getEvents,
+	eventsInsert,
+	deleteEvents
+} = require('../controllers/home.controller');
 
 router.get('/', adminget);
 router.post('/', adminpost);
