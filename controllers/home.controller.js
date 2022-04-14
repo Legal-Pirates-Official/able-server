@@ -12,7 +12,7 @@ exports.aboutget = async (req, res) => {
 
 exports.aboutupdate = async (req, res) => {
     console.log(req.body);
-    await db.query('UPDATE homeabout SET description = ?', [req.body.description], (err, response) => { 
+    await db.query('UPDATE homeabout SET description = ?', [req.body.values.description], (err, response) => { 
         if (err) {
             return console.log(err, 'error');
         } else {
