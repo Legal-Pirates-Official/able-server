@@ -14,8 +14,7 @@ const {
 	storiesGet,
 	storiesPost,
 	storiesDelete,
-	storiesUpdate,
-	uploadStoryThumbnail
+	storiesUpdate
 } = require('../controllers/stories.controller');
 
 const {
