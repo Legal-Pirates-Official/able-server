@@ -14,6 +14,7 @@ const {
 } = require('../controllers/stories.controller');
 
 const {aboutget, aboutupdate, getyoutube, youtubeInsert, deleteYoutube, getEvents,eventsInsert,deleteEvents} = require('../controllers/home.controller');
+const { about_get,about_post } = require('../controllers/about.controller');
 
 
 router.get('/', adminget);
@@ -24,7 +25,8 @@ router.post('/mail',mailer)
 
 router.get('/home/about', aboutget);
 router.post('/home/about', aboutupdate);
-
+router.get('/about', about_get)
+router.post('/about', about_post)
 router.get('/home/youtube', getyoutube);
 router.post('/home/youtube', youtubeInsert);
 router.delete('/home/youtube/:id', deleteYoutube);
