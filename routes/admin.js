@@ -7,15 +7,31 @@ const router = express.Router();
 // controllers
 const { adminget, adminpost ,getRequest,addSlot,getSlot,sendMail,mailer,meetLink,rejectRequest} = require('../controllers/admin.controller');
 const {
+	adminget,
+	adminpost,
+	getRequest
+} = require('../controllers/admin.controller');
+const {
 	storiesGet,
 	storiesPost,
 	storiesDelete,
-	storiesUpdate
+	storiesUpdate,
+	uploadStoryThumbnail
 } = require('../controllers/stories.controller');
 
 const {aboutget, aboutupdate, getyoutube, youtubeInsert, deleteYoutube, getEvents,eventsInsert,deleteEvents} = require('../controllers/home.controller');
 const { about_get,about_post } = require('../controllers/about.controller');
 
+const {
+	aboutget,
+	aboutupdate,
+	getyoutube,
+	youtubeInsert,
+	deleteYoutube,
+	getEvents,
+	eventsInsert,
+	deleteEvents
+} = require('../controllers/home.controller');
 
 router.get('/', adminget);
 router.post('/', adminpost);
