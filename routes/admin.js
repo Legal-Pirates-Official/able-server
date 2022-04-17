@@ -5,6 +5,7 @@ const db = require('../database');
 const router = express.Router();
 
 // controllers
+const { adminget, adminpost ,getRequest,addSlot,getSlot,sendMail,mailer,meetLink,rejectRequest} = require('../controllers/admin.controller');
 const {
 	adminget,
 	adminpost,
@@ -16,6 +17,9 @@ const {
 	storiesDelete,
 	storiesUpdate
 } = require('../controllers/stories.controller');
+
+const {aboutget, aboutupdate, getyoutube, youtubeInsert, deleteYoutube, getEvents,eventsInsert,deleteEvents} = require('../controllers/home.controller');
+const { about_get,about_post } = require('../controllers/about.controller');
 
 const {
 	aboutget,
@@ -30,10 +34,14 @@ const {
 
 router.get('/', adminget);
 router.post('/', adminpost);
+router.post('/reject', rejectRequest)
+router.post('/meetlink', meetLink);
+router.post('/mail',mailer)
 
 router.get('/home/about', aboutget);
 router.post('/home/about', aboutupdate);
-
+router.get('/about', about_get)
+router.post('/about', about_post)
 router.get('/home/youtube', getyoutube);
 router.post('/home/youtube', youtubeInsert);
 router.delete('/home/youtube/:id', deleteYoutube);
