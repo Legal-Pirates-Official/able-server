@@ -11,7 +11,6 @@ exports.aboutget = async (req, res) => {
 };
 
 exports.aboutupdate = async (req, res) => {
-    console.log(req.body);
     await db.query('UPDATE homeabout SET description = ?', [req.body.values.description], (err, response) => { 
         if (err) {
             return console.log(err, 'error');
@@ -33,7 +32,6 @@ exports.getyoutube = async (req, res) => {
 
 exports.youtubeInsert = async (req, res) => {
 
-    console.log(req.body);
     await db.query('INSERT INTO youtubevideos (thumbnail, video_url) VALUES (?, ?)', [req.body.photo, req.body.values.video_url], (err, response) => {
         if (err) {
             return console.log(err, 'error');
@@ -44,7 +42,6 @@ exports.youtubeInsert = async (req, res) => {
 }
 
 exports.deleteYoutube = async (req, res) => {
-    console.log(req.params.id);
     await db.query('DELETE FROM youtubevideos WHERE id = ?', [req.params.id], (err, response) => {
         if (err) {
             return console.log(err, 'error');
@@ -65,7 +62,6 @@ exports.getEvents = async (req, res) => {
 }
 
 exports.eventsInsert = async (req, res) => {
-    console.log(req.body);
     await db.query('INSERT INTO liveevents (thumbnail, event_url) VALUES (?, ?)', [req.body.photo, req.body.values.event_url], (err, response) => {
         if (err) {
             return console.log(err, 'error');
@@ -76,7 +72,6 @@ exports.eventsInsert = async (req, res) => {
 }
 
 exports.deleteEvents = async (req, res) => {
-    console.log(req.params.id);
     await db.query('DELETE FROM liveevents WHERE id = ?', [req.params.id], (err, response) => {
         if (err) {
             return console.log(err, 'error');

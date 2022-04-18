@@ -5,7 +5,6 @@ exports.about_get = async (req, res) => {
 		if (err) {
 			console.log(err);
 		} else {
-			console.log(response);
 			res.status(200).json(response);
 		}
 	});
@@ -52,7 +51,6 @@ exports.about_update = async (req, res) => {
 };
 
 exports.about_delete = async (req, res) => {
-	console.log(req.body);
 	await db.query(
 		`DELETE FROM about WHERE id = ?`,
 		[req.params.id],
