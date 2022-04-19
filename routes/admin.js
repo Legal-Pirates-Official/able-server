@@ -55,6 +55,8 @@ router.post('/home/events', eventsInsert);
 router.delete('/home/events/:id', deleteEvents);
 
 router.get('/about', about_get);
+
+
 router.post('/about', about_post);
 router.post('/about/:id', about_update);
 router.delete('/about/:id', about_delete);
