@@ -173,7 +173,7 @@ exports.getRequest = async (req, res) => {
 	});
 };
 exports.mailer = async (req, res) => {
-	const { email, timeslot } = req.body;
+	const { email, timeslot,date } = req.body;
 	await db.query('SELECT * FROM Mail', (err, response) => {
 		if (err) {
 			console.log(err);
@@ -191,15 +191,42 @@ exports.mailer = async (req, res) => {
 
 				// send mail with defined transport object
 				let info = transporter.sendMail({
-					from: '"Fred Foo 👻" <foo@example.com>', // sender address
+					from: 'Dr. Rajesh Fernando', // sender address
 					to: email.trim(), // list of receivers
 					subject: 'Meet Timings', // Subject line
-					text: `You meet timing is ${timeslot.time_slot}-${timeslot.time_slot_am_pm} Link:${response[0].meetLink}` // plain text body
+					text: `You meet timing is ${timeslot.time_slot}-${timeslot.time_slot_am_pm} ${date} Link:${response[0].meetLink}` // plain text body
 					// html body
 				});
-
+				db.query(
+					'SELECT booked_slot from Meet WHERE date = ?',
+					[date],
+					(err, response) => {
+						if (err) {
+							console.log(err);
+						} else {
+							if (response[0].booked_slot != null) {
+								var booked_slot_array = JSON.parse(response[0].booked_slot);
+								var new_booked_slot_array = booked_slot_array.filter(
+									(item) => item.email !== email
+								);
+								var new_booked_slot = JSON.stringify(new_booked_slot_array);
+								db.query(
+									`UPDATE Meet SET booked_slot = ? WHERE date = ?`,
+									[new_booked_slot, date],
+									(err, response) => {
+										if (err) {
+											console.log(err);
+										} else {
+											res.status(200).json(response);
+										}
+									}
+								);
+							}
+						}
+					}
+				);
 				// Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
-
+					console.log('msg sent');
 				// Preview only available when sending through an Ethereal account
 				// res.status(200).json(response);
 			} else {
@@ -211,6 +238,7 @@ exports.mailer = async (req, res) => {
 
 exports.rejectRequest = async (req, res) => {
 	const { email, date } = req.body;
+	console.log(date);
 	db.query(
 		'SELECT booked_slot from Meet WHERE date = ?',
 		[date],
@@ -239,4 +267,12 @@ exports.rejectRequest = async (req, res) => {
 			}
 		}
 	);
+	// console.log(date);
+	// db.query('SELECT booked_slot FROM Meet',(err,res)=> {
+	// 	if(err) {
+	// 		console.log(err);
+	// 	} else {
+	// 		console.log(res);
+	// 	}
+	// })
 };
