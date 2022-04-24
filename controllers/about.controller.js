@@ -11,11 +11,9 @@ exports.about_get = async (req, res) => {
 };
 
 exports.about_post = async (req, res) => {
-	console.log(req.body);
 	await db.query(
-		`INSERT INTO about SET about = ?,card_title = ? ,card_description = ?,card_image = ?`,
+		`INSERT INTO about SET card_title = ? ,card_description = ?,card_image = ?`,
 		[
-			req.body.values.about_description,
 			req.body.values.card_title,
 			req.body.values.card_description,
 			req.body.photo ? req.body.photo : 'nul'
@@ -32,9 +30,8 @@ exports.about_post = async (req, res) => {
 
 exports.about_update = async (req, res) => {
 	await db.query(
-		`UPDATE about SET about_description = ?,card_title = ? ,card_description = ?,card_image = ? WHERE id = ?`,
+		`UPDATE about SET card_title = ? ,card_description = ?,card_image = ? WHERE id = ?`,
 		[
-			req.body.values.about_description,
 			req.body.values.card_title,
 			req.body.values.card_description,
 			req.body.photo ? req.body.photo : 'nul',
