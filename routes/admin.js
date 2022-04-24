@@ -38,6 +38,12 @@ const {
 	about_delete
 } = require('../controllers/about.controller');
 
+router.get('/about', about_get);
+
+router.post('/about', about_post);
+router.post('/about/:id', about_update);
+router.delete('/about/:id', about_delete);
+
 router.get('/', adminget);
 router.post('/', adminpost);
 router.post('/reject', rejectRequest);
@@ -54,12 +60,6 @@ router.get('/home/events', getEvents);
 router.post('/home/events', eventsInsert);
 router.delete('/home/events/:id', deleteEvents);
 
-router.get('/about', about_get);
-
-
-router.post('/about', about_post);
-router.post('/about/:id', about_update);
-router.delete('/about/:id', about_delete);
 
 router.get('/request', getRequest);
 
