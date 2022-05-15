@@ -60,3 +60,27 @@ exports.about_delete = async (req, res) => {
 		}
 	);
 };
+
+exports.getAboutDescription = async (req, res) => {
+	await db.query('SELECT about_description FROM about', (err, response) => {
+		if (err) {
+			console.log(err);
+		} else {
+			res.status(200).json(response[0]);
+		}
+	});
+};
+
+exports.updateAboutDescription = async (req, res) => {
+	await db.query(
+		`UPDATE about SET about_description = ? WHERE id = ?`,
+		[req.body.about_description, req.params.id],
+		(err, response) => {
+			if (err) {
+				return console.log(err, 'error');
+			} else {
+				res.json(response);
+			}
+		}
+	);
+};

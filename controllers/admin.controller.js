@@ -173,7 +173,7 @@ exports.getRequest = async (req, res) => {
 	});
 };
 exports.mailer = async (req, res) => {
-	const { email, timeslot,date } = req.body;
+	const { email, timeslot, date } = req.body;
 	await db.query('SELECT * FROM Mail', (err, response) => {
 		if (err) {
 			console.log(err);
@@ -226,7 +226,7 @@ exports.mailer = async (req, res) => {
 					}
 				);
 				// Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
-					console.log('msg sent');
+				console.log('msg sent');
 				// Preview only available when sending through an Ethereal account
 				// res.status(200).json(response);
 			} else {
