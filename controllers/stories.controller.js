@@ -49,7 +49,6 @@ exports.storiesUpdate = async (req, res) => {
 			if (err) {
 				return console.log(err, 'error');
 			} else {
-				console.log(response);
 				res.json(response);
 			}
 		}
