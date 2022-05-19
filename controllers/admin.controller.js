@@ -3,6 +3,7 @@ const nodemailer = require('nodemailer');
 
 exports.addSlot = async (req, res) => {
 	const { time_slot, date, meetLink, email } = req.body;
+	console.log(date,'lp');
 	var arr = [];
 	for (let index = 0; index < Object.keys(time_slot).length / 2; index++) {
 		// const element = array[index];
@@ -16,18 +17,33 @@ exports.addSlot = async (req, res) => {
 		arr.push(obj);
 	}
 	var json = JSON.stringify(arr);
-
-	await db.query(
-		'INSERT into Meet SET time_slot = ? , date = ?',
-		[json, date],
-		(err, response) => {
-			if (err) {
-				console.log(err);
-			} else {
-				res.status(200).json(response);
+	await db.query('SELECT * from Meet WHERE date = ?',[date],(err,response)=>{
+		if(err){
+			console.log(err);
+		}else{
+			if(response.length>0){
+				db.query('UPDATE Meet SET time_slot = ? WHERE date = ?',[json,date],(err,response)=>{
+					if(err){
+						console.log(err);
+					}else{
+						res.status(200).json(response);
+					}
+				});
+			}else{
+				db.query('INSERT into Meet SET time_slot = ? , date = ?',[json,date],(err,response)=>{
+					if(err){
+						console.log(err);
+					}else{
+						res.status(200).json(response);
+					}
+				});
 			}
 		}
-	);
+
+
+
+	})
+	
 };
 exports.meetLink = async (req, res) => {
 	const { meetLink, email, password } = req.body;
@@ -76,15 +92,16 @@ exports.meetLink = async (req, res) => {
 };
 exports.getSlot = async (req, res) => {
 	const { date } = req.body;
-
-	await db.query(
+	console.log(date);
+	return await db.query(
 		'SELECT * from Meet WHERE date = ?',
 		[date],
 		(err, response) => {
 			if (err) {
 				console.log(err);
 			} else {
-				res.status(200).json(response);
+				console.log(response);
+				res.json(response);
 			}
 		}
 	);
@@ -174,6 +191,7 @@ exports.getRequest = async (req, res) => {
 };
 exports.mailer = async (req, res) => {
 	const { email, timeslot,date } = req.body;
+	console.log(timeslot,'ts');
 	await db.query('SELECT * FROM Mail', (err, response) => {
 		if (err) {
 			console.log(err);
@@ -207,7 +225,7 @@ exports.mailer = async (req, res) => {
 							if (response[0].booked_slot != null) {
 								var booked_slot_array = JSON.parse(response[0].booked_slot);
 								var new_booked_slot_array = booked_slot_array.filter(
-									(item) => item.email !== email
+									(item) => item.timeslot.time_slot !== timeslot.time_slot
 								);
 								var new_booked_slot = JSON.stringify(new_booked_slot_array);
 								db.query(
@@ -237,8 +255,9 @@ exports.mailer = async (req, res) => {
 };
 
 exports.rejectRequest = async (req, res) => {
-	const { email, date } = req.body;
-	console.log(date);
+	const { email, timeslot,date } = req.body;
+	console.log(timeslot,'ts');
+	
 	db.query(
 		'SELECT booked_slot from Meet WHERE date = ?',
 		[date],
@@ -248,8 +267,9 @@ exports.rejectRequest = async (req, res) => {
 			} else {
 				if (response[0].booked_slot != null) {
 					var booked_slot_array = JSON.parse(response[0].booked_slot);
+					console.log(booked_slot_array,'yim');
 					var new_booked_slot_array = booked_slot_array.filter(
-						(item) => item.email !== email
+						(item) => item.timeslot.time_slot !== timeslot.time_slot
 					);
 					var new_booked_slot = JSON.stringify(new_booked_slot_array);
 					db.query(
