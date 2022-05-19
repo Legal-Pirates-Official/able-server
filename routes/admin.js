@@ -35,8 +35,18 @@ const {
 	about_get,
 	about_post,
 	about_update,
-	about_delete
+	about_delete,
+	getAboutDescription,
+	updateAboutDescription
 } = require('../controllers/about.controller');
+
+router.get('/about', about_get);
+
+router.post('/about', about_post);
+router.post('/about/:id', about_update);
+router.delete('/about/:id', about_delete);
+router.get('/about/description', getAboutDescription);
+router.post('/about/description', updateAboutDescription);
 
 router.get('/', adminget);
 router.post('/', adminpost);
@@ -53,13 +63,6 @@ router.delete('/home/youtube/:id', deleteYoutube);
 router.get('/home/events', getEvents);
 router.post('/home/events', eventsInsert);
 router.delete('/home/events/:id', deleteEvents);
-
-router.get('/about', about_get);
-
-
-router.post('/about', about_post);
-router.post('/about/:id', about_update);
-router.delete('/about/:id', about_delete);
 
 router.get('/request', getRequest);
 
